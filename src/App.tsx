@@ -1,24 +1,36 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Search from './components/Search';
+import useForecast from './hooks/useForecast';
+import Forecast from './components/Forecast';
+
 
 function App() {
+
+  const { 
+    location, 
+    options, 
+    forecast, 
+    inputChange, 
+    onOptionSelect, 
+    onSubmit }  = useForecast()
+  
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <main className="flex justify-center items-center bg-gradient-to-tl from-blue-300 via-green-200 to-yellow-300 h-[100vh] w-full text-white">
+      {forecast ? (
+        <Forecast data={forecast} />
+      ) : (
+        <Search 
+          location={location} 
+          options={options} 
+          inputChange={inputChange} 
+          onOptionSelect={onOptionSelect} 
+          onSubmit={onSubmit}
+        />
+        )}
+      </main>
     </div>
   );
 }
